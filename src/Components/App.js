@@ -5,28 +5,23 @@ import 'bootstrap/dist/css/bootstrap.css'
 
 // Import Components
 import Header from './Header';
+import Formaddtodo from './Formaddtodo';
 
 class App extends Component {
     state = {
-        formInput: "",
-        todos :[], 
+        todos: [],
     }
 
-    formHandler(e) {
-        e.preventDefault();
+    addTodo(text) {
         this.setState(prevState => {
             return {
-                todos : [
+                todos: [
                     ...prevState.todos,
-                    {key : Date.now() , done : false , Text : prevState.formInput}
+                    { key: Date.now(), done: false, text }
                 ],
-                formInput : ''
             }
         })
-    }
-    inputHandler(e) {
-        this.setState({formInput : e.target.value})
-    }
+    };
 
     render() {
         return (
@@ -37,12 +32,7 @@ class App extends Component {
                         <div className="container d-flex flex-column align-items-center">
                             <h1 className="jumbotron-heading">Welcome!</h1>
                             <p className="lead text-muted">To get started, add some items to your list:</p>
-                            <form className="form-inline" onSubmit={this.formHandler.bind(this)}>
-                                <div className="form-group">
-                                    <input type="text" className="form-control mx-sm-3" placeholder="i want to do ..."value={this.setState.formInput} onChange={this.inputHandler.bind(this)} />
-                                    <button type='submit' className="btn btn-primary">add</button>
-                                </div>
-                            </form>
+                            <Formaddtodo add={this.addTodo.bind(this)}/>
                         </div>
                     </section>
                     <div className="todosList">
