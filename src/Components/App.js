@@ -4,14 +4,13 @@ import 'bootstrap/dist/css/bootstrap.css'
 
 
 // Import Components
-import Header from './Header';
-import FormAddTodo from './FormAddTodo';
-import Todo from './Todo';
+import Header from './layout/Header';
+import FormAddTodo from './Todo/FormAddTodo';
+import TodoList from './Todo/TodoList';
 
 class App extends Component {
     state = {
-        todos : [],
-        statusDone : false
+        todos : []
     }
 
 
@@ -68,12 +67,6 @@ class App extends Component {
     }
 
     render() {
-
-        let { todos , statusDone } = this.state;
-
-        let filterTodos = todos.filter(item => item.done === statusDone)
-
-
         return (
             <div className="App">
                 <Header />
@@ -88,27 +81,13 @@ class App extends Component {
                     <div className="todosList">
                             <div className="container">
                                 <div className="d-flex flex-column align-items-center ">
-                                    <nav className="col-6 mb-3">
-                                        <div className="nav nav-tabs" id="nav-tab" role="tablist">
-                                            <a className={`nav-item nav-link font-weight-bold ${ !statusDone ? 'active' : '' }`} id="nav-home-tab" onClick={() => this.setState({ statusDone : false })}>undone <span className="badge badge-secondary">{ todos.filter(item => item.done === false).length }</span></a>
-                                            <a className={`nav-item nav-link font-weight-bold ${ statusDone ? 'active' : '' }`} id="nav-profile-tab" onClick={() => this.setState({ statusDone : true })}>done <span className="badge badge-success">{ todos.filter(item => item.done === true).length}</span></a>
-                                        </div>
-                                    </nav>
-                                    {
-                                        filterTodos.length === 0
-                                            ?   <p>there isn`t any todos</p>
-                                            : filterTodos.map(item => <Todo 
-                                                                            key={item.key} 
-                                                                            item={item} 
-                                                                            delete={this.deleteTodo.bind(this)}
-                                                                            done={this.toggleTodo.bind(this)} 
-                                                                            edit={this.editTodo.bind(this)}
-                                                                        />
-                                                                    )
-                                    }
-
+                                    <TodoList 
+                                        todos={this.state.todos}
+                                        delete={this.deleteTodo.bind(this)}
+                                        done={this.toggleTodo.bind(this)} 
+                                        edit={this.editTodo.bind(this)}
+                                    />
                                 </div>
-                        
                             </div>
                     </div>
                 </main>
