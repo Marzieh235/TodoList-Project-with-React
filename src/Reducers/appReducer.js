@@ -1,29 +1,101 @@
-function AppReducer(State, action) {
+function AppReducer(state , action) {
+    console.log(state , action);
     switch (action.type) {
         case 'add_todo':
-            let { text } = action.payload
-            return {
-                todos: [
-                    ...State.todos,
-                    { key: Date.now(), done: false, text }
-                ]
-            };
+            return addTodo(state , action);
             break;
-
+        case 'delete_todo' :
+            return deleteTodo(state,action);
+            break;
+        case 'toggle_todo' : 
+            return toggleTodo(state, action);
+            break;
+        case 'edit_todo' : 
+            return editTodo(state , action);
+            break;
+        case 'login_user' :
+            return {
+                ...state,
+                authenticated : true
+            }
+            break;
+        case 'logout_user' :
+            return {
+                ...state,
+                authenticated : false
+            }
+            break;
         default:
-            return State;
+            return state;
             break;
     }
 }
 
-
-
-
-
 export default AppReducer;
+
+
+let addTodo = (state , action) => {
+    let { text } = action.payload;
+    return {
+        ...state,
+        todos : [
+            ...state.todos,
+            { key : Date.now() , done : false , text }
+        ]
+    }
+}
+
+let deleteTodo = (state , action ) => {
+    let { key } = action.payload;
+
+    return {
+        ...state,
+        todos : state.todos.filter(item => item.key !== key)
+    }
+}
+
+let toggleTodo = (state , action) => {
+    let { key } = action.payload;
+
+    let item = state.todos.find(item => item.key === key);
+    item.done = ! item.done ;
+
+    let newTodos = state.todos.filter(item => item.key !== key)
+
+    return {
+        ...state,
+        todos : [
+            ...newTodos,
+            item
+        ]
+    }
+}
+
+let editTodo = (state ,action) => {
+    let { key , text} = action.payload;
+    
+    let item = state.todos.find(item => item.key === key);
+    item.text = text ;
+
+    let newTodos = state.todos.filter(item => item.key !== key)
+
+    return {
+        ...state,
+        todos : [
+            ...newTodos,
+            item
+        ]
+    }
+}
+
 // addTodo(text) {
 //     this.setState(prevState => {
-//
+//         return {
+//             todos : [
+//                 ...prevState.todos,
+//                 { key : Date.now() , done : false , text }
+//             ]
+//         }
 //     })
 // }
 
@@ -31,21 +103,21 @@ export default AppReducer;
 // deleteTodo(key) {
 //     this.setState(prevState => {
 //         return {
-//             todos: prevState.todos.filter(item => item.key !== key)
+//             todos : prevState.todos.filter(item => item.key !== key)
 //         }
 //     })
 // }
 
-// editTodo(key, text) {
+// editTodo(key , text) {
 //     let { todos } = this.state;
 
 //     let item = todos.find(item => item.key === key);
-//     item.text = text;
+//     item.text = text ;
 
 //     let newTodos = todos.filter(item => item.key !== key)
 
 //     this.setState({
-//         todos: [
+//         todos : [
 //             ...newTodos,
 //             item
 //         ]
@@ -57,12 +129,12 @@ export default AppReducer;
 //     let { todos } = this.state;
 
 //     let item = todos.find(item => item.key === key);
-//     item.done = !item.done;
+//     item.done = ! item.done ;
 
 //     let newTodos = todos.filter(item => item.key !== key)
 
 //     this.setState({
-//         todos: [
+//         todos : [
 //             ...newTodos,
 //             item
 //         ]

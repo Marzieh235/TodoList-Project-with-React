@@ -1,15 +1,16 @@
-import React, { useContext } from 'react';
+import React , { useContext } from 'react';
 import AuthContext from '../../Context/auth';
 import TodosContext from '../../Context/todos';
 
 
-
 function Header() {
 
-    const authContext = useContext(AuthContext);
     const todosContext = useContext(TodosContext);
-    let doLogin = () => authContext.login();
-    let doLogout = () => authContext.logout();
+    const authContext = useContext(AuthContext);
+
+
+    let doLogin = () => authContext.dispatch({ type : 'login_user' });
+    let doLogout = () => authContext.dispatch({ type : 'logout_user'});
 
     return (
         <header>
@@ -19,10 +20,9 @@ function Header() {
                         <strong>Todo App</strong>
                     </a>
                     {
-                        !authContext.authenticated
-                            ? <button className='btn btn-sm btn-success' onClick={doLogin}>Login</button>
-                            : <button className='btn btn-sm btn-danger' onClick={doLogout}>Logout</button>
-
+                        ! authContext.authenticated
+                            ? <button className="btn btn-sm btn-success" onClick={doLogin}>login</button>
+                            : <button className="btn btn-sm btn-danger" onClick={doLogout}>logout</button>
                     }
                 </div>
             </div>
