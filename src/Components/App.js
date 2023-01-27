@@ -15,6 +15,9 @@ import Home from '../Routes/Home';
 import {Routes , Route} from 'react-router-dom'
 import About from '../Routes/About'
 import ContactUs from '../Routes/ContactUs'
+import SingleTodo from '../Routes/SingleTodo';
+
+
 function App() {
 
     const [state, dispatch] = useReducer(AppReducer, {
@@ -42,6 +45,9 @@ function App() {
                         <Route path='/' element={<Home/>}/>
                         <Route path='/about' element={<About/>}/>
                         <Route path='/contact-us' element={<ContactUs/>}/>
+                        <Route path='/todo/:slug' element={<SingleTodo/>}/>
+                        <Route path='/articles/:slug' element={<SingleTodo/>}/>
+
                     </Routes>
                 </div>
             </TodosContext.Provider>
