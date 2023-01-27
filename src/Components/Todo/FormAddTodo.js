@@ -1,8 +1,7 @@
 import React from 'react'
 import TodosContext from './../../Context/todos';
 import AuthContext from '../../Context/auth';
-import axios from 'axios';
-
+import TodoApi from './../../Api/todos'
 class FormAddTodo extends React.Component {
     state = { text : '' }
     static contextType = TodosContext;
@@ -12,7 +11,7 @@ class FormAddTodo extends React.Component {
         //ajax
         if (this.state.text.length > 5){
             let todo = { text : this.state.text , done : false };
-            axios.post(`https://todo-app-25b4f-default-rtdb.firebaseio.com/todos.json` , todo)
+            TodoApi.post(`/todos.json` , todo)
             .then(response => this.context.dispatch({ type : 'add_todo' , payload : { todo : { ...todo , key : response.data.name } } }))
             .catch(err => console.log(err))
             this.setState({ text : '' })

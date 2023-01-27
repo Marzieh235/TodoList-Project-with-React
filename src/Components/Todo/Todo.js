@@ -1,7 +1,7 @@
 import React, { useState, useContext } from 'react'
 import EditTodo from './EditTodo';
 import TodosContext from '../../Context/todos';
-import axios from 'axios';
+import TodoApi from './../../Api/todos'
 
 
 function Todo(props) {
@@ -12,7 +12,7 @@ function Todo(props) {
     const todosContext = useContext(TodosContext);
 
     let editHandler = text => {
-        axios.put(`https://todo-app-25b4f-default-rtdb.firebaseio.com/todos/${item.key}.json`, { done: item.done, text })
+        TodoApi.put(`/todos/${item.key}.json`, { done: item.done, text })
             .then(response => {
                 todosContext.dispatch({ type: 'edit_todo', payload: { key: item.key, text } })
             })
@@ -21,7 +21,7 @@ function Todo(props) {
     }
 
     let doneHandler = e => {
-        axios.put(`https://todo-app-25b4f-default-rtdb.firebaseio.com/todos/${item.key}.json`, { done: !item.done, text:item.text })
+        TodoApi.put(`/todos/${item.key}.json`, { done: !item.done, text:item.text })
             .then(response => {
                 todosContext.dispatch({ type: 'toggle_todo', payload: { key: item.key } })
             })
@@ -30,7 +30,7 @@ function Todo(props) {
 
     let deleteHandler = e => {
         // ajax 
-        axios.delete(`https://todo-app-25b4f-default-rtdb.firebaseio.com/todos/${item.key}.json`)
+        TodoApi.delete(`/todos/${item.key}.json`)
             .then(response => {
                 todosContext.dispatch({ type: 'delete_todo', payload: { key: item.key } })
 

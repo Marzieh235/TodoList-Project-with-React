@@ -1,7 +1,5 @@
 import React, { useReducer, useEffect } from 'react';
-
 import 'bootstrap/dist/css/bootstrap.css'
-
 // Import Components
 import Header from './Layouts/Header';
 import FormAddTodo from './Todo/FormAddTodo';
@@ -10,7 +8,7 @@ import TodoList from './Todo/TodoList';
 // impor Contexts
 import TodosContext from './../Context/todos';
 import AuthContext from './../Context/auth';
-import axios from 'axios';
+import TodoApi from './../Api/todos'
 
 // import Reducers
 import AppReducer from './../Reducers/appReducer';
@@ -24,7 +22,7 @@ function App() {
 
 
     useEffect(() => {
-        axios.get(`https://todo-app-25b4f-default-rtdb.firebaseio.com/todos.json`)
+        TodoApi.get(`/todos.json`)
         .then(response =>jsonHandler(response.data))
         .catch(err => console.log(err))
     } , [])
