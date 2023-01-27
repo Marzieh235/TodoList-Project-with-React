@@ -2,7 +2,7 @@ import React, { useState, useContext } from 'react'
 import EditTodo from './EditTodo';
 import TodosContext from '../../Context/todos';
 import TodoApi from './../../Api/todos'
-
+import { Link } from 'react-router-dom';
 
 function Todo(props) {
 
@@ -45,9 +45,9 @@ function Todo(props) {
                     ? (
                         <div className="col-6 mb-2">
                             <div className="d-flex justify-content-between align-items-center border rounded p-3">
-                                <div>
+                                <Link to={`/todos/${item.key}`}>
                                     {item.text}
-                                </div>
+                                </Link>
                                 <div>
                                     <button type="button" className={`btn btn-sm mr-1 ${!item.done ? 'btn-success' : 'btn-warning'}`} onClick={doneHandler}>{item.done ? 'undone' : 'done'}</button>
                                     <button type="button" className="btn btn-info btn-sm mr-1" onClick={() => setEdit(true)}>edit</button>
