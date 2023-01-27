@@ -13,6 +13,8 @@ import AppReducer from './../Reducers/appReducer';
 //import Routes
 import Home from '../Routes/Home';
 import {Routes , Route} from 'react-router-dom'
+import About from '../Routes/About'
+import ContactUs from '../Routes/ContactUs'
 function App() {
 
     const [state, dispatch] = useReducer(AppReducer, {
@@ -38,6 +40,8 @@ function App() {
                     <Header />
                     <Routes>
                         <Route path='/' element={<Home/>}/>
+                        <Route path='/about' element={<About/>}/>
+                        <Route path='/contact-us' element={<ContactUs/>}/>
                     </Routes>
                 </div>
             </TodosContext.Provider>

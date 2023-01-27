@@ -4,7 +4,7 @@ const instance = axios.create({
 
     baseURL: 'https://todo-app-25b4f-default-rtdb.firebaseio.com',
 
-    timeout: 10000,
+    timeout: 30000,
 
 
 })
