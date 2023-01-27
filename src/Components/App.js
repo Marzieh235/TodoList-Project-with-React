@@ -1,5 +1,6 @@
-import React, { useReducer, useEffect } from 'react';
+import React, { useReducer, useEffect , useState} from 'react';
 import 'bootstrap/dist/css/bootstrap.css'
+import TodoApi from './../Api/todos'
 // Import Components
 import Header from './Layouts/Header';
 import FormAddTodo from './Todo/FormAddTodo';
@@ -8,7 +9,6 @@ import TodoList from './Todo/TodoList';
 // impor Contexts
 import TodosContext from './../Context/todos';
 import AuthContext from './../Context/auth';
-import TodoApi from './../Api/todos'
 
 // import Reducers
 import AppReducer from './../Reducers/appReducer';
@@ -20,14 +20,17 @@ function App() {
         authenticated: false
     })
 
+    const [loading , setloading] = useState();
 
     useEffect(() => {
+        setloading(true);
         TodoApi.get(`/todos.json`)
         .then(response =>jsonHandler(response.data))
         .catch(err => console.log(err))
     } , [])
 
     let jsonHandler = (data) => {
+        setloading(false)
         let todos = Object
             .entries(data)
             .map(([key, value]) => {
@@ -63,7 +66,11 @@ function App() {
                         <div className="todosList">
                             <div className="container">
                                 <div className="d-flex flex-column align-items-center ">
-                                    <TodoList />
+                                    {
+                                        loading
+                                        ? <h2>Loading data ...</h2>
+                                        : <TodoList />
+                                    }
                                 </div>
                             </div>
                         </div>

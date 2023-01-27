@@ -35,7 +35,7 @@ function Todo(props) {
                 todosContext.dispatch({ type: 'delete_todo', payload: { key: item.key } })
 
             })
-            .catch(err => console.log(err))
+            .catch(err => {})
     }
 
     return (
