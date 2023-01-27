@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import AuthContext from '../../Context/auth';
 import TodosContext from '../../Context/todos';
-import { Link } from 'react-router-dom';
+import { Link , NavLink} from 'react-router-dom';
 
 function Header() {
 
@@ -25,13 +25,17 @@ function Header() {
                         </a>
                         <ul className='nav'>
                             <li className='nav-item'>
-                                <Link className='nav-link active text-white' to="/">Home</Link>
+                                <NavLink className='nav-link active text-white' to="/">Home</NavLink>
                             </li>
                             <li className='nav-item'>
-                                <Link className='nav-link text-white'to="/about">About</Link>
+                                <NavLink className='nav-link text-white'to="/about">About</NavLink>
                             </li>
                             <li className='nav-item'>
-                                <Link className='nav-link text-white' to="/contact-us">ContactUs</Link>
+                                <NavLink className='nav-link' style={({isActive}) => {
+                                    return {
+                                        color : isActive ? 'red' : ''
+                                    }
+                                }} to="/contact-us">ContactUs</NavLink>
                             </li>
                         </ul>
                     </div>
