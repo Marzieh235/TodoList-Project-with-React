@@ -1,4 +1,4 @@
-import React, { useReducer} from 'react';
+import React, { useReducer } from 'react';
 import 'bootstrap/dist/css/bootstrap.css'
 // Import Components
 import Header from './Layouts/Header';
@@ -12,7 +12,7 @@ import AppReducer from './../Reducers/appReducer';
 
 //import Routes
 import Home from '../Routes/Home';
-import {Routes , Route} from 'react-router-dom'
+import { Routes, Route } from 'react-router-dom'
 import About from '../Routes/About'
 import ContactUs from '../Routes/ContactUs'
 import SingleTodo from '../Routes/Todos/Single';
@@ -25,9 +25,9 @@ function App() {
         authenticated: false
     })
 
-      
 
-    
+
+
 
 
     return (
@@ -42,10 +42,15 @@ function App() {
                 <div className="App">
                     <Header />
                     <Routes>
-                        <Route path='/' element={<Home/>}/>
-                        <Route path='/about' element={<About/>}/>
-                        <Route path='/contact-us' element={<ContactUs/>}/>
-                        <Route path='/todos/:id' element={<SingleTodo/>}/>
+                        <Route path='/' element={<Home />} />
+                        <Route path='/about' element={<About />} />
+                        <Route path='/contact-us' element={<ContactUs />} />
+                        <Route path='/todos/:id' element={<SingleTodo />}>
+                            <Route path='form' element={<h2>My contact from</h2>}/>
+                            <Route path='adress' element={<h2>My contact adress</h2>}/>
+
+
+                        </Route>
 
                     </Routes>
                 </div>
