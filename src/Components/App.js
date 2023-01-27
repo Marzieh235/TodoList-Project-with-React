@@ -16,6 +16,7 @@ import { Routes, Route } from 'react-router-dom'
 import About from '../Routes/About'
 import ContactUs from '../Routes/ContactUs'
 import SingleTodo from '../Routes/Todos/Single';
+import NotFound from '../Routes/NotFound';
 
 
 function App() {
@@ -50,6 +51,7 @@ function App() {
                             <Route path='adress' element={<h2>My contact adress</h2>}/>
 
 
+                            <Route path='*' element={<NotFound />}/>
                         </Route>
 
                     </Routes>

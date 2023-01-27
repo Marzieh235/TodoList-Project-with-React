@@ -10,8 +10,6 @@ export default function aboutPage() {
 
             <Link to='/contact-us'>To address</Link>
             <Outlet />
-
-
         </section>
     )
 }
